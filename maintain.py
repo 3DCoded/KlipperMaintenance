@@ -58,14 +58,20 @@ class Maintain:
         path = f'~/maintain-db/{self.name}'
         if os.path.exists(path):
             with open(path, 'r') as file:
-                data = json.load(file)
+                try:
+                    data = json.load(file)
+                except:
+                    data = {'print_time': 0, 'filament': 0}
                 return data
     
     def update_db(self, new):
         path = f'~/maintain-db/{self.name}'
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w+') as file:
-            data = json.load(file)
+            try:
+                data = json.load(file)
+            except:
+                data = {'print_time': 0, 'filament': 0}
             data.update(new)
             json.dump(data, file)
         return data
