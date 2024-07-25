@@ -20,7 +20,7 @@ class Maintain:
         self.message = config.get('message')
 
         # TODO: register GCode commands
-        self.gcode.register_mux_command('CHECK_MAINTENANCE', 'LABEL', self.label, self.cmd_CHECK_MAINTENANCE, desc=self.cmd_CHECK_MAINTENANCE_help)
+        self.gcode.register_mux_command('CHECK_MAINTENANCE', 'NAME', self.name, self.cmd_CHECK_MAINTENANCE, desc=self.cmd_CHECK_MAINTENANCE_help)
     
     def get_remaining(self):
         return self.threshold
