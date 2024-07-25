@@ -129,7 +129,7 @@ class Maintain:
     def get_remaining(self):
         last = self.fetch_db()[self.trigger]
         now = self.fetch_history()[self.trigger]
-        return self.threshold - (now - last)
+        return round(self.threshold - (now - last), 2)
 
     cmd_CHECK_MAINTENANCE_help = 'Check maintenance'
     def cmd_CHECK_MAINTENANCE(self, gcmd):
