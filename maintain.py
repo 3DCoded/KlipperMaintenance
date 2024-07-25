@@ -33,7 +33,14 @@ class Maintain:
     
     def fetch_history(self):
         resp = requests.urlopen(API_URL) # fetch data from Moonraker History API
-        json_data = json.loads(resp.read())
+        try:
+            json_data = json.loads(resp.read())
+        except Exception:
+            self.gcode.respond_info(f'Data {resp.read()}')
+            return {
+                'print_time': 0,
+                'filament': 0
+            }
 
         job_totals = json_data['result']['job_totals'] # get job totals from JSON response
         return {
