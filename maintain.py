@@ -1,6 +1,6 @@
 import json
 import os
-import requests
+import urllib.request as requests
 
 API_URL = 'http://localhost:7125/server/history/totals'
 
@@ -32,8 +32,8 @@ class Maintain:
         self.gcode.register_mux_command('UPDATE_MAINTENANCE', 'NAME', self.name, self.cmd_UPDATE_MAINTENANCE, desc=self.cmd_UPDATE_MAINTENANCE_help)
     
     def fetch_history(self):
-        resp = requests.get(API_URL) # fetch data from Moonraker History API
-        json_data = resp.json()
+        resp = requests.urlopen(API_URL) # fetch data from Moonraker History API
+        json_data = json.loads(resp.read())
 
         job_totals = json_data['result']['job_totals'] # get job totals from JSON response
         return {
