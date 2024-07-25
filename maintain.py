@@ -1,5 +1,6 @@
 import json
 import os
+import time
 import urllib.request as requests
 
 API_URL = 'http://localhost:7125/server/history/totals'
@@ -66,11 +67,13 @@ class Maintain:
         # get config options
         self.label = config.get('label')
 
-        self.trigger = config.getchoice('trigger', ['print_time', 'filament'])
+        self.trigger = config.getchoice('trigger', ['print_time', 'filament', 'time'])
         if self.trigger == 'print_time':
             self.units = 'h'
         elif self.trigger == 'filament':
             self.units = 'm'
+        elif self.trigger == 'time':
+            self.units = 'h'
 
         self.threshold = config.getint('threshold')
         self.message = config.get('message')
@@ -89,13 +92,15 @@ class Maintain:
             self.gcode.respond_info(f'Data {resp.read()}')
             return {
                 'print_time': 0,
-                'filament': 0
+                'filament': 0,
+                'time': time.time()/3600
             }
 
         job_totals = json_data['result']['job_totals'] # get job totals from JSON response
         return {
             'print_time': job_totals['total_time']/3600,
             'filament': job_totals['total_filament_used']/1000,
+            'time': time.time()/3600
         }
 
     def init_db(self):
@@ -111,7 +116,7 @@ class Maintain:
                 try:
                     data = json.load(file)
                 except:
-                    data = {'print_time': 0, 'filament': 0}
+                    data = {'print_time': 0, 'filament': 0, 'time': time.time()/3600}
                 return data
     
     def update_db(self, new):
@@ -121,7 +126,7 @@ class Maintain:
             try:
                 data = json.load(file)
             except:
-                data = {'print_time': 0, 'filament': 0}
+                data = {'print_time': 0, 'filament': 0, 'time': time.time()/3600}
             data.update(new)
             json.dump(data, file)
         return data
