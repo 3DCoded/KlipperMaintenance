@@ -36,6 +36,8 @@ class Maintenance:
         objs = self.printer.lookup_objects('maintain')
         for obj in objs:
             obj = obj[1]
+            if not isinstance(obj, Maintain):
+                continue
             if obj.get_remaining() < 0:
                 self.gcode.respond_info(f'Maintenance "{obj.label}" Expired!\n{obj.message}')
                 self.gcode.run_script_from_command('M117 Maintenance Expired!')
@@ -45,6 +47,8 @@ class Maintenance:
         objs = self.printer.lookup_objects('maintain')
         for obj in objs:
             obj = obj[1]
+            if not isinstance(obj, Maintain):
+                continue
             remain = obj.get_remaining()
             if remain < 0:
                 self.gcode.respond_info(f'Maintenance "{obj.label}" Expired!\n{obj.message}')
