@@ -3,6 +3,7 @@ import os
 import urllib.request as requests
 
 API_URL = 'http://localhost:7125/server/history/totals'
+HOME_DIR = os.path.expanduser('~')
 
 class Maintain:
     def __init__(self, config):
@@ -55,7 +56,7 @@ class Maintain:
             self.update_db(data)
 
     def fetch_db(self):
-        path = f'~/maintain-db/{self.name}'
+        path = os.path.join(HOME_DIR, f'maintain-db/{self.name}')
         if os.path.exists(path):
             with open(path, 'r') as file:
                 try:
@@ -65,7 +66,7 @@ class Maintain:
                 return data
     
     def update_db(self, new):
-        path = f'~/maintain-db/{self.name}'
+        path = os.path.join(HOME_DIR, f'maintain-db/{self.name}')
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w+') as file:
             try:
