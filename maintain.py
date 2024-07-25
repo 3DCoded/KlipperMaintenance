@@ -45,8 +45,8 @@ class Maintain:
 
         job_totals = json_data['result']['job_totals'] # get job totals from JSON response
         return {
-            'print_time': job_totals['total_time'],
-            'filament': job_totals['total_filament_used'],
+            'print_time': job_totals['total_time']/3600,
+            'filament': job_totals['total_filament_used']/1000,
         }
 
     def init_db(self):
