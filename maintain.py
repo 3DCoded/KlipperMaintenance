@@ -1,3 +1,9 @@
+import json
+import os
+import requests
+
+API_URL = 'http://localhost:7125/server/history/totals'
+
 class Maintain:
     def __init__(self, config):
         self.config = config
@@ -19,11 +25,48 @@ class Maintain:
         self.threshold = config.getint('threshold')
         self.message = config.get('message')
 
-        # TODO: register GCode commands
+        self.init_db()
+
+        # register GCode commands
         self.gcode.register_mux_command('CHECK_MAINTENANCE', 'NAME', self.name, self.cmd_CHECK_MAINTENANCE, desc=self.cmd_CHECK_MAINTENANCE_help)
+        self.gcode.register_mux_command('UPDATE_MAINTENANCE', 'NAME', self.name, self.cmd_UPDATE_MAINTENANCE, desc=self.cmd_UPDATE_MAINTENANCE_help)
     
+    def fetch_history(self):
+        resp = requests.get(API_URL) # fetch data from Moonraker History API
+        json_data = resp.json()
+
+        job_totals = json_data['result']['job_totals'] # get job totals from JSON response
+        return {
+            'print_time': job_totals['total_time'],
+            'filament': job_totals['total_filament_used'],
+        }
+
+    def init_db(self):
+        data = self.fetch_db()
+        if data is None:
+            data = self.fetch_history()
+            self.update_db(data)
+
+    def fetch_db(self):
+        path = f'~/maintain-db/{self.name}'
+        if os.path.exists(path):
+            with open(path, 'r') as file:
+                data = json.load(file)
+                return data
+    
+    def update_db(self, new):
+        path = f'~/maintain-db/{self.name}'
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, 'w+') as file:
+            data = json.load(file)
+            data.update(new)
+            json.dump(data, file)
+        return data
+
     def get_remaining(self):
-        return self.threshold
+        last = self.fetch_db()[self.trigger]
+        now = self.fetch_history()[self.trigger]
+        return self.threshold - (now - last)
 
     cmd_CHECK_MAINTENANCE_help = 'Check maintenance'
     def cmd_CHECK_MAINTENANCE(self, gcmd):
@@ -32,6 +75,10 @@ class Maintain:
         Next maintenance in {self.get_remaining()}{self.units}
         Maintenance message: {self.message}
         '''.strip())
+    
+    cmd_UPDATE_MAINTENANCE_help = 'Update maintenance'
+    def cmd_UPDATE_MAINTENANCE(self, gcmd):
+        self.update_db(self.fetch_history())
 
 def load_config_prefix(config):
     return Maintain(config)
