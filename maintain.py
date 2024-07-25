@@ -5,6 +5,49 @@ import urllib.request as requests
 API_URL = 'http://localhost:7125/server/history/totals'
 HOME_DIR = os.path.expanduser('~')
 
+class Maintenance:
+    def __init__(self, config):
+        self.config = config
+        self.printer = config.get_printer()
+        self.reactor = self.printer.get_reactor()
+        self.gcode = self.printer.lookup_object('gcode')
+        
+        self.interval = config.getint('interval', 60)
+
+        self.timer_handler = None
+        self.inside_timer = self.repeat = False
+        self.printer.register_event_handler("klippy:ready", self._handle_ready)
+
+        self.gcode.register_command('MAINTAIN_STATUS', self.cmd_MAINTAIN_STATUS, desc=self.cmd_MAINTAIN_STATUS_help)
+        
+    def _handle_ready(self):
+        waketime = self.reactor.monotonic() + self.interval
+        self.timer_handler = self.reactor.register_timer(
+            self._gcode_timer_event, waketime)
+        
+    def _gcode_timer_event(self, eventtime):
+        self.inside_timer = True
+        self.check_maintenance()
+        nextwake = eventtime + self.interval
+        self.inside_timer = self.repeat = False
+        return nextwake
+
+    def check_maintenance(self):
+        objs = self.printer.lookup_objects('maintain')
+        for obj in objs:
+            if obj.get_remaining() < 0:
+                self.gcode.respond_info(f'Maintenance "{obj.label}" Expired!\n{obj.message}')
+                self.gcode.run_script_from_command('M117 Maintenance Expired!')
+    
+    cmd_MAINTAIN_STATUS_help = 'Check status of maintenance'
+    def cmd_MAINTAIN_STATUS(self, gcmd):
+        objs = self.printer.lookup_objects('maintain')
+        for obj in objs:
+            remain = obj.get_remaining()
+            if remain < 0:
+                self.gcode.respond_info(f'Maintenance "{obj.label}" Expired!\n{obj.message}')
+            self.gcode.respond_info(f'{obj.label}: {obj.get_remaining()}{obj.units} remaining')
+
 class Maintain:
     def __init__(self, config):
         self.config = config
@@ -85,14 +128,17 @@ class Maintain:
     cmd_CHECK_MAINTENANCE_help = 'Check maintenance'
     def cmd_CHECK_MAINTENANCE(self, gcmd):
         gcmd.respond_info(f'''
-        Maintenance {self.label} Status:
-        Next maintenance in {self.get_remaining()}{self.units}
-        Maintenance message: {self.message}
+Maintenance {self.label} Status:
+Next maintenance in {self.get_remaining()}{self.units}
+Maintenance message: {self.message}
         '''.strip())
     
     cmd_UPDATE_MAINTENANCE_help = 'Update maintenance'
     def cmd_UPDATE_MAINTENANCE(self, gcmd):
         self.update_db(self.fetch_history())
+
+def load_config(config):
+    return Maintenance(config)
 
 def load_config_prefix(config):
     return Maintain(config)
