@@ -32,3 +32,6 @@ class Maintain:
         Next maintenance in {self.get_remaining()}{self.units}
         Maintenance message: {self.message}
         '''.strip())
+
+def load_config_prefix(config):
+    return Maintain(config)
