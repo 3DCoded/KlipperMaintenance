@@ -20,6 +20,7 @@ To update KlipperMaintenance, run in your terminal:
 
 ```sh
 cd KlipperMaintenance
+git pull
 sh install.sh
 sudo service klipper restart
 ```
