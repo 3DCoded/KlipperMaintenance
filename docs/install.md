@@ -22,7 +22,7 @@ Add to your `moonraker.conf`:
 type: git_repo
 path: ~/KlipperMaintenance
 origin: https://github.com/3DCoded/KlipperMaintenance.git
-primary_branch: dev
+primary_branch: main
 is_system_service: False
 install_script: install.sh
 ```
