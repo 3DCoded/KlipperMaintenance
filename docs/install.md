@@ -14,13 +14,25 @@ sh install.sh
 sudo service klipper restart
 ```
 
+Add to your `moonraker.conf`:
+
+```cfg title="moonraker.conf"
+# KlipperMaintenance Update Manager
+[update_manager KlipperMaintenance]
+type: git_repo
+path: ~/KlipperMaintenance
+origin: https://github.com/3DCoded/KlipperMaintenance.git
+primary_branch: dev
+is_system_service: False
+install_script: install.sh
+```
+
 ## Update
 
-To update KlipperMaintenance, run in your terminal:
+To update KlipperMaintenance, update via Moonraker's update manager, then run in your terminal:
 
 ```sh
 cd KlipperMaintenance
-git pull
 sh install.sh
 sudo service klipper restart
 ```
