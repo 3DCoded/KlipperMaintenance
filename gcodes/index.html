@@ -8,22 +8,26 @@
       
       
       
+        <link rel="canonical" href="https://3dcoded.github.io/KlipperMaintenance/gcodes/">
+      
+      
+        <link rel="prev" href="../config/">
       
       
       
-      <link rel="icon" href="/KlipperMaintenance/assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
     
     
       
-        <title>Klipper Maintenance</title>
+        <title>G-Codes - Klipper Maintenance</title>
       
     
     
-      <link rel="stylesheet" href="/KlipperMaintenance/assets/stylesheets/main.3cba04c6.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
       
         
-        <link rel="stylesheet" href="/KlipperMaintenance/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -42,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("/KlipperMaintenance/",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -67,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#g-codes" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -79,7 +88,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/KlipperMaintenance/." title="Klipper Maintenance" class="md-header__button md-logo" aria-label="Klipper Maintenance" data-md-component="logo">
+    <a href=".." title="Klipper Maintenance" class="md-header__button md-logo" aria-label="Klipper Maintenance" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -99,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              G-Codes
             
           </span>
         </div>
@@ -219,7 +228,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/KlipperMaintenance/." title="Klipper Maintenance" class="md-nav__button md-logo" aria-label="Klipper Maintenance" data-md-component="logo">
+    <a href=".." title="Klipper Maintenance" class="md-nav__button md-logo" aria-label="Klipper Maintenance" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -249,7 +258,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/KlipperMaintenance/." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -269,7 +278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/KlipperMaintenance/install/" class="md-nav__link">
+      <a href="../install/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -289,7 +298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/KlipperMaintenance/config/" class="md-nav__link">
+      <a href="../config/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -306,10 +315,30 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/KlipperMaintenance/gcodes/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    G-Codes
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -318,6 +347,53 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#maintain_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      MAINTAIN_STATUS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check_maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      CHECK_MAINTENANCE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update_maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      UPDATE_MAINTENANCE
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -339,6 +415,43 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#maintain_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      MAINTAIN_STATUS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check_maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      CHECK_MAINTENANCE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update_maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      UPDATE_MAINTENANCE
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -350,8 +463,54 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+  
+    <a href="https://github.com/3dcoded/KlipperMaintenance/blob/docs/docs/gcodes.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="g-codes">G-Codes</h1>
+<p>KlipperMaintenance provides a few helper GCodes to manage your maintenance. Follow this guide to learn how to use them.</p>
+<h2 id="maintain_status">MAINTAIN_STATUS</h2>
+<p>Shows the current status of maintenance. Accepts no parameters. Using the example from <a href="../config/#maintenance-sections">Configuration</a> and assuming air filter is expired, here is an example:</p>
+<div class="highlight"><span class="filename">Input</span><pre><span></span><code>MAINTAIN_STATUS
+</code></pre></div>
+<div class="highlight"><span class="filename">Output</span><pre><span></span><code>XY smooth rods: 200h remaining
+Maintenance &quot;Air filter&quot; Expired!
+Replace HEPA and charcoal filters
+Extruder maintenance: 400m remaining
+</code></pre></div>
+<h2 id="check_maintenance">CHECK_MAINTENANCE</h2>
+<p>Shows the current status of provided maintenance. Example:</p>
+<div class="highlight"><span class="filename">Input</span><pre><span></span><code>CHECK_MAINTENANCE NAME=xyrods
+</code></pre></div>
+<div class="highlight"><span class="filename">Output</span><pre><span></span><code>Maintenance xyrods Status:
+Next maintenance in 200h
+Maintenance message: Lubricate XY smooth rods
+</code></pre></div>
+<h2 id="update_maintenance">UPDATE_MAINTENANCE</h2>
+<p>Marks the provided maintenance as complete. Example:</p>
+<div class="highlight"><span class="filename">input</span><pre><span></span><code>UPDATE_MAINTENANCE NAME=xyrods
+</code></pre></div>
+<p>This resets the maintenance timer for the <code>xyrods</code> maintenance.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -385,10 +544,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/KlipperMaintenance/", "features": ["content.action.edit", "navigation.expand", "navigation.instant", "navigation.instant.prefetch", "content.code.copy", "search.suggest", "search.highlight", "search.share"], "search": "/KlipperMaintenance/assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "navigation.expand", "navigation.instant", "navigation.instant.prefetch", "content.code.copy", "search.suggest", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/KlipperMaintenance/assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
   </body>
