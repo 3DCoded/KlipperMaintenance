@@ -6,11 +6,16 @@
 
 ## Documentation
 
-## Documentation
-
 Read the documentation [here](https://3dcoded.github.io/KlipperMaintenance)
 
 [![Built with Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
+
+## More Projects
+
+If you like this project, don't forget to give it a star! Also, check out my other projects:
+
+- [3MS](https://github.com/3dcoded/3ms), a modular multimaterial system for Klipper
+- [DynamicMacros](https://github.com/3DCoded/DynamicMacros), never restart Klipper again for simple macros
 
 ## Features
 
