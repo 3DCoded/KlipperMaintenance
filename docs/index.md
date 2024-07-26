@@ -4,6 +4,9 @@
 
 ---
 
+!!! info
+    This is still a work in progress with partial testing.
+
 ## Features
 
 Klipper Maintenance supports the following features:
