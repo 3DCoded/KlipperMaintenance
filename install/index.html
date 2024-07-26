@@ -468,10 +468,19 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/3DCod
 sh<span class="w"> </span>install.sh
 sudo<span class="w"> </span>service<span class="w"> </span>klipper<span class="w"> </span>restart
 </code></pre></div>
+<p>Add to your <code>moonraker.conf</code>:</p>
+<div class="highlight"><span class="filename">moonraker.conf</span><pre><span></span><code><span class="c1"># KlipperMaintenance Update Manager</span>
+<span class="k">[update_manager KlipperMaintenance]</span>
+<span class="na">type</span><span class="o">:</span><span class="w"> </span><span class="s">git_repo</span>
+<span class="na">path</span><span class="o">:</span><span class="w"> </span><span class="s">~/KlipperMaintenance</span>
+<span class="na">origin</span><span class="o">:</span><span class="w"> </span><span class="s">https://github.com/3DCoded/KlipperMaintenance.git</span>
+<span class="na">primary_branch</span><span class="o">:</span><span class="w"> </span><span class="s">dev</span>
+<span class="na">is_system_service</span><span class="o">:</span><span class="w"> </span><span class="s">False</span>
+<span class="na">install_script</span><span class="o">:</span><span class="w"> </span><span class="s">install.sh</span>
+</code></pre></div>
 <h2 id="update">Update</h2>
-<p>To update KlipperMaintenance, run in your terminal:</p>
+<p>To update KlipperMaintenance, update via Moonraker's update manager, then run in your terminal:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>KlipperMaintenance
-git<span class="w"> </span>pull
 sh<span class="w"> </span>install.sh
 sudo<span class="w"> </span>service<span class="w"> </span>klipper<span class="w"> </span>restart
 </code></pre></div>
