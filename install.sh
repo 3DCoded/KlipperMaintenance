@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ln -f maintain.py ~/klipper/klippy/extras/maintain.py
+ln -f maintain.py ~/moonraker/moonraker/components/maintain.py
