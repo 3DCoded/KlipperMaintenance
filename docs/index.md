@@ -2,6 +2,9 @@
 
 **Keep your 3D printer running smoothly**
 
+<img src="./assets/logo.png" alt="logo" width="200"/>
+
+
 ---
 
 !!! info

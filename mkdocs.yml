@@ -24,6 +24,7 @@ extra:
     provider: google
     property: G-QN601HS43W
 theme:
+  logo: assets/logo.png
   features:
       - content.action.edit
       - navigation.expand
