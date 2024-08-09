@@ -5,6 +5,8 @@ edit_uri: blob/docs/docs/
 plugins:
   - search
   - autolinks
+  - print-site:
+      path_to_pdf: export.pdf
 markdown_extensions:
   - admonition
   - pymdownx.details
@@ -25,6 +27,7 @@ extra:
     property: G-QN601HS43W
 theme:
   logo: assets/logo.png
+  custom_dir: docs/overrides
   features:
       - content.action.edit
       - navigation.expand
