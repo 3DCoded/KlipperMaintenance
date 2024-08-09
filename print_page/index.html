@@ -8,10 +8,8 @@
       
       
       
-        <link rel="canonical" href="https://3dcoded.github.io/KlipperMaintenance/gcodes/">
+        <link rel="canonical" href="https://3dcoded.github.io/KlipperMaintenance/print_page/">
       
-      
-        <link rel="prev" href="../config/">
       
       
       
@@ -20,7 +18,7 @@
     
     
       
-        <title>G-Codes - Klipper Maintenance</title>
+        <title>Print Site - Klipper Maintenance</title>
       
     
     
@@ -62,7 +60,7 @@
     
       <link rel="stylesheet" href="../css/print-site-material.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("/KlipperMaintenance/",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -79,7 +77,13 @@
     
     
     
-  </head>
+  
+        <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            remove_material_navigation();remove_mkdocs_theme_navigation();generate_toc();
+        })
+        </script>
+        </head>
   
   
     
@@ -98,7 +102,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#g-codes" class="md-skip">
+        <a href="#" class="md-skip">
           Skip to content
         </a>
       
@@ -133,7 +137,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              G-Codes
+              Print Site
             
           </span>
         </div>
@@ -339,30 +343,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    G-Codes
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../gcodes/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -371,53 +355,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#maintain_status" class="md-nav__link">
-    <span class="md-ellipsis">
-      MAINTAIN_STATUS
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#check_maintenance" class="md-nav__link">
-    <span class="md-ellipsis">
-      CHECK_MAINTENANCE
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#update_maintenance" class="md-nav__link">
-    <span class="md-ellipsis">
-      UPDATE_MAINTENANCE
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -439,8 +376,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -449,27 +384,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#maintain_status" class="md-nav__link">
+  <a href="#" class="md-nav__link">
     <span class="md-ellipsis">
-      MAINTAIN_STATUS
+      1. Home
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#check_maintenance" class="md-nav__link">
+  <a href="#install" class="md-nav__link">
     <span class="md-ellipsis">
-      CHECK_MAINTENANCE
+      2. Installation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#update_maintenance" class="md-nav__link">
+  <a href="#config" class="md-nav__link">
     <span class="md-ellipsis">
-      UPDATE_MAINTENANCE
+      3. Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gcodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. G-Codes
     </span>
   </a>
   
@@ -489,33 +433,124 @@
                 
 
 
-    <a href="../print_page/" title="Print Site" class="md-content__button md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3Z"/></svg>
-    </a>
 
-
-
-    <a href="../export.pdf" title="Site PDF" class="md-content__button md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-9.5 8.5c0 .8-.7 1.5-1.5 1.5H7v2H5.5V9H8c.8 0 1.5.7 1.5 1.5v1m5 2c0 .8-.7 1.5-1.5 1.5h-2.5V9H13c.8 0 1.5.7 1.5 1.5v3m4-3H17v1h1.5V13H17v2h-1.5V9h3v1.5m-6.5 0h1v3h-1v-3m-5 0h1v1H7v-1Z"/></svg>
-    </a>
 
 
 
                   
 
-  
-    <a href="https://github.com/3dcoded/KlipperMaintenance/blob/docs/docs/gcodes.md" title="Edit this page" class="md-content__button md-icon">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
-    </a>
-  
-  
 
+<div id="print-site-page" class="print-site-enumerate-headings print-site-enumerate-figures">
+        <section class="print-page">
+            <div id="print-page-toc" data-toc-depth="3">
+                <nav role='navigation' class='print-page-toc-nav'>
+                <h1 class='print-page-toc-title'>Table of Contents</h1>
+                </nav>
+            </div>
+        </section>
+        <section class="print-page" id="index"><h1 id="index-klipper-maintenance">Klipper Maintenance</h1>
+<p><strong>Keep your 3D printer running smoothly</strong></p>
+<p><img src="../assets/logo.png" alt="logo" width="200"/></p>
+<hr />
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This is still a work in progress with partial testing.</p>
+</div>
+<h2 id="index-features">Features</h2>
+<p>Klipper Maintenance supports the following features:</p>
+<ul>
+<li>Maintenance reminders in the terminal</li>
+<li>Maintenance reminders on the printer display</li>
+<li>Print time thresholds</li>
+<li>Filament thresholds</li>
+<li>Time thresholds</li>
+</ul>
+<h2 id="index-get-started">Get Started</h2>
+<p>Follow <a href="#install">Installation</a> to get started with Klipper Maintenance.</p>
+<h2 id="index-configuration">Configuration</h2>
+<p>After installing KlipperMaintenance, follow <a href="#config">Configuration</a> to configure KlipperMaintenance.</p>
+<h2 id="index-usage">Usage</h2>
+<p>To use KlipperMaintenance, follow <a href="#gcodes">G-Codes</a>.</p></section><section class="print-page" id="install"><h1 id="install-installation">Installation</h1>
+<p>Follow this guide to install or update KlipperMaintenance.</p>
+<h2 id="install-install">Install</h2>
+<p>To install KlipperMaintenance, run in your terminal:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/3DCoded/KlipperMaintenance
+<span class="nb">cd</span><span class="w"> </span>KlipperMaintenance
+sh<span class="w"> </span>install.sh
+sudo<span class="w"> </span>service<span class="w"> </span>klipper<span class="w"> </span>restart
+</code></pre></div>
+<p>Add to your <code>moonraker.conf</code>:</p>
+<div class="highlight"><span class="filename">moonraker.conf</span><pre><span></span><code><span class="c1"># KlipperMaintenance Update Manager</span>
+<span class="k">[update_manager KlipperMaintenance]</span>
+<span class="na">type</span><span class="o">:</span><span class="w"> </span><span class="s">git_repo</span>
+<span class="na">path</span><span class="o">:</span><span class="w"> </span><span class="s">~/KlipperMaintenance</span>
+<span class="na">origin</span><span class="o">:</span><span class="w"> </span><span class="s">https://github.com/3DCoded/KlipperMaintenance.git</span>
+<span class="na">primary_branch</span><span class="o">:</span><span class="w"> </span><span class="s">main</span>
+<span class="na">is_system_service</span><span class="o">:</span><span class="w"> </span><span class="s">False</span>
+<span class="na">install_script</span><span class="o">:</span><span class="w"> </span><span class="s">install.sh</span>
+</code></pre></div>
+<h2 id="install-update">Update</h2>
+<p>To update KlipperMaintenance, update via Moonraker's update manager, then run in your terminal:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>KlipperMaintenance
+sh<span class="w"> </span>install.sh
+sudo<span class="w"> </span>service<span class="w"> </span>klipper<span class="w"> </span>restart
+</code></pre></div></section><section class="print-page" id="config"><h1 id="config-configuration">Configuration</h1>
+<p>After installing KlipperMaintenance, follow this guide to configure it.</p>
+<h2 id="config-main-section">Main Section</h2>
+<p>First, a main <code>[maintain]</code> section must be configured. This has two main purposes:</p>
+<ol>
+<li>Check periodically if maintenance needs to be done</li>
+<li>Provide the <code>MAINTAIN_STATUS</code> command</li>
+</ol>
+<p>To configure it, add to your <code>printer.cfg</code>:</p>
+<div class="highlight"><span class="filename">printer.cfg</span><pre><span></span><code><span class="k">[maintain]</span>
+<span class="na">interval</span><span class="o">:</span><span class="w"> </span><span class="s">60</span><span class="w"> </span><span class="c1"># optional, time (in seconds) between checking if maintenance needs to be done (default is 60)</span>
+</code></pre></div>
+<h2 id="config-maintenance-sections">Maintenance Sections</h2>
+<p>Next, for each maintenance object, a <code>[maintain xxx]</code> config section should be configured. In this example, three maintenance objects will be configured (note the times here are purely for demonstration and are probably not ideal):</p>
+<ol>
+<li>Lubricate XY rods (250 hours print time)</li>
+<li>Replace air filter (500 hours time)</li>
+<li>Clean and tighten extruder screws (700m filament)</li>
+</ol>
+<p>For each <code>[maintain xxx]</code> section, there are four options that must be set:</p>
+<ul>
+<li><strong><code>label</code></strong> text that will be displayed when referring to this maintenance object</li>
+<li><strong><code>trigger</code></strong> type of event that triggers this maintenance. Currently three options:<ul>
+<li><strong><code>print_time</code></strong> print time, in hours</li>
+<li><strong><code>filament</code></strong> extruded filament, in meters (330m is roughly 1kg of PLA)</li>
+<li><strong><code>time</code></strong> time, in hours</li>
+</ul>
+</li>
+<li><strong><code>threshold</code></strong> how often maintenance needs to be done. For <code>print_time</code> and <code>time</code>, this is in hours. For <code>filament</code>, this is in meters</li>
+<li><strong><code>message</code></strong> message that will be displayed when maintenance needs to be done</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><span class="filename">printer.cfg</span><pre><span></span><code><span class="c1"># Lubricate XY rods</span>
+<span class="k">[maintain xyrods]</span>
+<span class="na">label</span><span class="o">:</span><span class="w"> </span><span class="s">XY smooth rods</span>
+<span class="na">trigger</span><span class="o">:</span><span class="w"> </span><span class="s">print_time</span>
+<span class="na">threshold</span><span class="o">:</span><span class="w"> </span><span class="s">250</span>
+<span class="na">message</span><span class="o">:</span><span class="w"> </span><span class="s">Lubricate XY smooth rods</span>
 
-<h1 id="g-codes">G-Codes</h1>
+<span class="c1"># Replace air filter</span>
+<span class="k">[maintain airfilter]</span>
+<span class="na">label</span><span class="o">:</span><span class="w"> </span><span class="s">Air filter</span>
+<span class="na">trigger</span><span class="o">:</span><span class="w"> </span><span class="s">time</span>
+<span class="na">threshold</span><span class="o">:</span><span class="w"> </span><span class="s">500</span>
+<span class="na">message</span><span class="o">:</span><span class="w"> </span><span class="s">Replace HEPA and charcoal filters</span>
+
+<span class="c1"># Extruder maintenance</span>
+<span class="k">[maintain extruder]</span>
+<span class="na">label</span><span class="o">:</span><span class="w"> </span><span class="s">Extruder maintenance</span>
+<span class="na">trigger</span><span class="o">:</span><span class="w"> </span><span class="s">filament</span>
+<span class="na">threshold</span><span class="o">:</span><span class="w"> </span><span class="s">700</span>
+<span class="na">message</span><span class="o">:</span><span class="w"> </span><span class="s">Clean extruder gears and tighten extruder bolts</span>
+</code></pre></div></section><section class="print-page" id="gcodes"><h1 id="gcodes-g-codes">G-Codes</h1>
 <p>KlipperMaintenance provides a few helper GCodes to manage your maintenance. Follow this guide to learn how to use them.</p>
-<h2 id="maintain_status">MAINTAIN_STATUS</h2>
-<p>Shows the current status of maintenance. Accepts no parameters. Using the example from <a href="../config/#maintenance-sections">Configuration</a> and assuming air filter is expired, here is an example:</p>
+<h2 id="gcodes-maintain_status">MAINTAIN_STATUS</h2>
+<p>Shows the current status of maintenance. Accepts no parameters. Using the example from <a href="#config-maintenance-sections">Configuration</a> and assuming air filter is expired, here is an example:</p>
 <div class="highlight"><span class="filename">Input</span><pre><span></span><code>MAINTAIN_STATUS
 </code></pre></div>
 <div class="highlight"><span class="filename">Output</span><pre><span></span><code>XY smooth rods: 200h remaining
@@ -523,7 +558,7 @@ Maintenance &quot;Air filter&quot; Expired!
 Replace HEPA and charcoal filters
 Extruder maintenance: 400m remaining
 </code></pre></div>
-<h2 id="check_maintenance">CHECK_MAINTENANCE</h2>
+<h2 id="gcodes-check_maintenance">CHECK_MAINTENANCE</h2>
 <p>Shows the current status of provided maintenance. Example:</p>
 <div class="highlight"><span class="filename">Input</span><pre><span></span><code>CHECK_MAINTENANCE NAME=xyrods
 </code></pre></div>
@@ -531,11 +566,11 @@ Extruder maintenance: 400m remaining
 Next maintenance in 200h
 Maintenance message: Lubricate XY smooth rods
 </code></pre></div>
-<h2 id="update_maintenance">UPDATE_MAINTENANCE</h2>
+<h2 id="gcodes-update_maintenance">UPDATE_MAINTENANCE</h2>
 <p>Marks the provided maintenance as complete. Example:</p>
 <div class="highlight"><span class="filename">input</span><pre><span></span><code>UPDATE_MAINTENANCE NAME=xyrods
 </code></pre></div>
-<p>This resets the maintenance timer for the <code>xyrods</code> maintenance.</p>
+<p>This resets the maintenance timer for the <code>xyrods</code> maintenance.</p></section></div>
 
 
 
@@ -585,7 +620,7 @@ Maintenance message: Lubricate XY smooth rods
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "navigation.expand", "navigation.instant", "navigation.instant.prefetch", "content.code.copy", "search.suggest", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "/KlipperMaintenance/", "features": ["content.action.edit", "navigation.expand", "navigation.instant", "navigation.instant.prefetch", "content.code.copy", "search.suggest", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
