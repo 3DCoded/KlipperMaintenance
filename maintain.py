@@ -40,8 +40,7 @@ class Maintenance:
             if not isinstance(obj, Maintain):
                 continue
             if obj.get_remaining() < 0:
-                self.gcode.respond_info(f'Maintenance "{obj.label}" Expired!\n{obj.message}')
-                self.gcode.run_script_from_command('M117 Maintenance Expired!')
+                self.gcode.run_script(obj.expired_gcode.render())
     
     cmd_MAINTAIN_STATUS_help = 'Check status of maintenance'
     def cmd_MAINTAIN_STATUS(self, gcmd):
@@ -75,7 +74,10 @@ class Maintain:
         elif self.trigger == 'time':
             self.units = 'h'
 
-        self.threshold = config.getint('threshold')
+        gcode_macro = self.printer.load_object(config, 'gcode_macro')
+        self.expired_gcode = gcode_macro.load_template(config, 'expired_gcode', f'RESPOND MSG="Maintenance \"{self.label}\" Expired!\n{self.message}"\nM117 Maintenance Expired!')
+
+        self.threshold = config.getfloat('threshold')
         self.message = config.get('message')
 
         self.init_db()
