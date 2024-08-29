@@ -78,7 +78,7 @@ class Maintain:
         self.message = config.get('message')
 
         gcode_macro = self.printer.load_object(config, 'gcode_macro')
-        self.expired_gcode = gcode_macro.load_template(config, 'expired_gcode', f'RESPOND MSG="Maintenance \\"{self.label}\\" Expired!\n{self.message}"\nM117 Maintenance Expired!')
+        self.expired_gcode = gcode_macro.load_template(config, 'expired_gcode', f'M118 Maintenance "{self.label}" Expired!\n{self.message}\nM117 Maintenance Expired!')
 
         self.init_db()
 
