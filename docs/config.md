@@ -34,6 +34,9 @@ For each `[maintain xxx]` section, there are four options that must be set:
 - **`threshold`** how often maintenance needs to be done. For `print_time` and `time`, this is in hours. For `filament`, this is in meters
 - **`message`** message that will be displayed when maintenance needs to be done
 
+!!! example "Experimental"
+    - **`expired_gcode`** GCode to run after maintenance expires. Not required
+
 Example:
 
 ```cfg title="printer.cfg"
