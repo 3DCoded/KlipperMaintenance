@@ -40,7 +40,7 @@ class Maintenance:
             if not isinstance(obj, Maintain):
                 continue
             if obj.get_remaining() < 0:
-                self.gcode.run_script(obj.expired_gcode.render())
+                obj.expired_func()
     
     cmd_MAINTAIN_STATUS_help = 'Check status of maintenance'
     def cmd_MAINTAIN_STATUS(self, gcmd):
@@ -78,7 +78,12 @@ class Maintain:
         self.message = config.get('message')
 
         gcode_macro = self.printer.load_object(config, 'gcode_macro')
-        self.expired_gcode = gcode_macro.load_template(config, 'expired_gcode', f'M118 Maintenance "{self.label}" Expired!\n{self.message}\nM117 Maintenance Expired!')
+        self.expired_gcode = gcode_macro.load_template(config, 'expired_gcode', '')
+
+        if self.expired_gcode is not None:
+            self.expired_func = lambda: self.gcode.run_script(self.expired_gcode.render())
+        else:
+            self.expired_func = self.default_expired_func
 
         self.init_db()
 
@@ -86,6 +91,9 @@ class Maintain:
         self.gcode.register_mux_command('CHECK_MAINTENANCE', 'NAME', self.name, self.cmd_CHECK_MAINTENANCE, desc=self.cmd_CHECK_MAINTENANCE_help)
         self.gcode.register_mux_command('UPDATE_MAINTENANCE', 'NAME', self.name, self.cmd_UPDATE_MAINTENANCE, desc=self.cmd_UPDATE_MAINTENANCE_help)
     
+    def default_expired_func(self):
+        self.gcode.respond_info(f'Maintenance Expired!\nMaintenance "{self.name}" expired!\n{self.message}')
+
     def fetch_history(self):
         resp = requests.urlopen(API_URL) # fetch data from Moonraker History API
         try:
