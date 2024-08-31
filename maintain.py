@@ -64,7 +64,7 @@ class Maintain:
         self.name = config.get_name().split()[1]
 
         # get config options
-        self.label = config.get('label')
+        self.label = config.get('label', default='')
 
         self.trigger = config.getchoice('trigger', ['print_time', 'filament', 'time'])
         if self.trigger == 'print_time':
@@ -75,7 +75,7 @@ class Maintain:
             self.units = 'h'
 
         self.threshold = config.getfloat('threshold')
-        self.message = config.get('message')
+        self.message = config.get('message', default='')
 
         gcode_macro = self.printer.load_object(config, 'gcode_macro')
         self.expired_gcode = gcode_macro.load_template(config, 'expired_gcode', '')
