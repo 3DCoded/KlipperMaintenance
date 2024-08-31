@@ -78,9 +78,8 @@ class Maintain:
         self.message = config.get('message', default='')
 
         gcode_macro = self.printer.load_object(config, 'gcode_macro')
-        self.expired_gcode = gcode_macro.load_template(config, 'expired_gcode', '')
-
-        if self.expired_gcode is not None:
+        if config.get('expired_gcode', None) is not None:
+            self.expired_gcode = gcode_macro.load_template(config, 'expired_gcode', '')
             self.expired_func = lambda: self.gcode.run_script(self.expired_gcode.render())
         else:
             self.expired_func = self.default_expired_func
