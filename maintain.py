@@ -15,12 +15,13 @@ class Maintenance:
         
         self.interval = config.getint('interval', 60)
 
-        self.timer_handler = None
-        self.inside_timer = self.repeat = False
-        self.printer.register_event_handler("klippy:ready", self._handle_ready)
-
         self.gcode.register_command('MAINTAIN_STATUS', self.cmd_MAINTAIN_STATUS, desc=self.cmd_MAINTAIN_STATUS_help)
-        
+
+        if self.interval > 0:
+            self.timer_handler = None
+            self.inside_timer = self.repeat = False
+            self.printer.register_event_handler("klippy:ready", self._handle_ready)
+
     def _handle_ready(self):
         waketime = self.reactor.monotonic() + self.interval
         self.timer_handler = self.reactor.register_timer(
