@@ -567,7 +567,13 @@ Maintenance message: Lubricate XY smooth rods
 <p>Marks the provided maintenance as complete. Example:</p>
 <div class="highlight"><span class="filename">input</span><pre><span></span><code>UPDATE_MAINTENANCE NAME=xyrods
 </code></pre></div>
-<p>This resets the maintenance timer for the <code>xyrods</code> maintenance.</p></section></div>
+<p>This resets the maintenance timer for the <code>xyrods</code> maintenance.</p>
+<p>You can also pass a <code>HOURS</code> parameter to set the current amount of working hours. Example:</p>
+<p>Your <code>threshold</code> for <code>xyrods</code> is set to <code>350</code> print hours. You have printed for <code>100</code> hours so far.</p>
+<p>Run the following command:</p>
+<div class="highlight"><span class="filename">input</span><pre><span></span><code>UPDATE_MAINTENANCE NAME=xyrods HOURS=100
+</code></pre></div>
+<p>This will ensure that KlipperMaintenance reminds you to lubricate your XY rods after <strong><code>250</code></strong> hours, not <code>350</code>.</p></section></div>
 
 
 
