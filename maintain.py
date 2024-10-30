@@ -156,7 +156,14 @@ Maintenance message: {self.message}
     
     cmd_UPDATE_MAINTENANCE_help = 'Update maintenance'
     def cmd_UPDATE_MAINTENANCE(self, gcmd):
-        self.update_db(self.fetch_history())
+        data = self.fetch_history()
+
+        hours = gcmd.get_int('HOURS', -1)
+        if hours > -1 and hours < self.threshold:
+            new = self.fetch_history()[self.trigger] - hours
+            data[self.trigger] = new
+
+        self.update_db(data)
 
 def load_config(config):
     return Maintenance(config)
