@@ -40,3 +40,15 @@ UPDATE_MAINTENANCE NAME=xyrods
 ```
 
 This resets the maintenance timer for the `xyrods` maintenance.
+
+You can also pass a `HOURS` parameter to set the current amount of working hours. Example:
+
+Your `threshold` for `xyrods` is set to `350` print hours. You have printed for `100` hours so far.
+
+Run the following command:
+
+```title="input"
+UPDATE_MAINTENANCE NAME=xyrods HOURS=100
+```
+
+This will ensure that KlipperMaintenance reminds you to lubricate your XY rods after **`250`** hours, not `350`.
