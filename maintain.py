@@ -53,7 +53,7 @@ class Maintenance:
             remain = obj.get_remaining()
             if remain < 0:
                 self.gcode.respond_info(f'Maintenance "{obj.label}" Expired!\n{obj.message}')
-            self.gcode.respond_info(f'{obj.label}: {obj.get_remaining()}{obj.units} remaining')
+            self.gcode.respond_info(f'{obj.label}{" (disabled)" if obj.disabled else ""}: {obj.get_remaining()}{obj.units} remaining')
 
 class Maintain:
     def __init__(self, config):
@@ -63,6 +63,9 @@ class Maintain:
 
         # get name
         self.name = config.get_name().split()[1]
+
+        # set disabled
+        self.disabled = config.getboolean('disabled', default=False)
 
         # get config options
         self.label = config.get('label', default='')
@@ -87,9 +90,13 @@ class Maintain:
 
         self.init_db()
 
+        self.last_disabled = self.fetch_history()[self.trigger] if self.disabled else -1
+
         # register GCode commands
         self.gcode.register_mux_command('CHECK_MAINTENANCE', 'NAME', self.name, self.cmd_CHECK_MAINTENANCE, desc=self.cmd_CHECK_MAINTENANCE_help)
         self.gcode.register_mux_command('UPDATE_MAINTENANCE', 'NAME', self.name, self.cmd_UPDATE_MAINTENANCE, desc=self.cmd_UPDATE_MAINTENANCE_help)
+        self.gcode.register_mux_command('ENABLE_MAINTENANCE', 'NAME', self.name, self.cmd_ENABLE_MAINTENANCE, desc=self.cmd_ENABLE_MAINTENANCE_help)
+        self.gcode.register_mux_command('DISABLE_MAINTENANCE', 'NAME', self.name, self.cmd_DISABLE_MAINTENANCE, desc=self.cmd_DISABLE_MAINTENANCE_help)
     
     def default_expired_func(self):
         self.gcode.respond_info(f'Maintenance Expired!\nMaintenance "{self.name}" expired!\n{self.message}')
@@ -144,12 +151,14 @@ class Maintain:
     def get_remaining(self):
         last = self.fetch_db()[self.trigger]
         now = self.fetch_history()[self.trigger]
+        if self.disabled and self.last_disabled > -1:
+            now = self.last_disabled
         return round(self.threshold - (now - last), 2)
 
     cmd_CHECK_MAINTENANCE_help = 'Check maintenance'
     def cmd_CHECK_MAINTENANCE(self, gcmd):
         gcmd.respond_info(f'''
-Maintenance {self.label} Status:
+Maintenance "{self.label}" Status{" (disabled)" if self.disabled else ""}:
 Next maintenance in {self.get_remaining()}{self.units}
 Maintenance message: {self.message}
         '''.strip())
@@ -164,6 +173,43 @@ Maintenance message: {self.message}
             data[self.trigger] = new
 
         self.update_db(data)
+    
+    cmd_DISABLE_MAINTENANCE_help = 'Disable maintenance'
+    def cmd_DISABLE_MAINTENANCE(self, gcmd):
+        if self.disabled:
+            gcmd.respond_info(f'''
+Maintenance "{self.label}" is already disabled!
+''')
+        else:
+            self.disabled = True
+            self.last_disabled = self.fetch_history()[self.trigger]
+            gcmd.respond_info(f'''
+Maintenance "{self.label}" disabled.
+''')
+
+    def calc_new_start(self, cur, last_disabled=None):
+        last_disabled = last_disabled or self.last_disabled
+        old_start = self.fetch_db()[self.trigger]
+        time_running = last_disabled - old_start
+        remaining = self.threshold - time_running
+        return remaining - self.threshold + cur
+    
+    cmd_ENABLE_MAINTENANCE_help = 'Enable maintenance'
+    def cmd_ENABLE_MAINTENANCE(self, gcmd):
+        if self.disabled:
+            cur = self.fetch_history()[self.trigger]
+            duration = cur - self.last_disabled
+            self.disabled = False
+            last_disabled = self.last_disabled + 0.0
+            self.last_disabled = -1
+            self.update_db({self.trigger: self.calc_new_start(cur, last_disabled)})
+            gcmd.respond_info(f'''
+Maintenance "{self.label}" enabled (disabled for {round(duration, 2)}{self.units})
+''')
+        else:
+            gcmd.respond_info(f'''
+Maintenance {self.label} already enabled!
+''')
 
 def load_config(config):
     return Maintenance(config)
