@@ -90,7 +90,7 @@ class Maintain:
 
         self.init_db()
 
-        self.last_disabled = self.fetch_history()[self.trigger] if self.disabled else -1
+        # self.last_disabled = self.fetch_history()[self.trigger] if self.disabled else -1
 
         # register GCode commands
         self.gcode.register_mux_command('CHECK_MAINTENANCE', 'NAME', self.name, self.cmd_CHECK_MAINTENANCE, desc=self.cmd_CHECK_MAINTENANCE_help)
@@ -102,26 +102,30 @@ class Maintain:
         self.gcode.respond_info(f'Maintenance Expired!\nMaintenance "{self.name}" expired!\n{self.message}')
 
     def fetch_history(self):
-        resp = requests.urlopen(API_URL) # fetch data from Moonraker History API
         try:
+            resp = requests.urlopen(API_URL) # fetch data from Moonraker History API
             json_data = json.loads(resp.read())
         except Exception:
             self.gcode.respond_info(f'Data {resp.read()}')
             return {
                 'print_time': 0,
                 'filament': 0,
-                'time': time.time()/3600
+                'time': time.time()/3600,
+                'last_disabled': -1
             }
 
         job_totals = json_data['result']['job_totals'] # get job totals from JSON response
         return {
             'print_time': job_totals['total_time']/3600,
             'filament': job_totals['total_filament_used']/1000,
-            'time': time.time()/3600
+            'time': time.time()/3600,
+            'last_disabled': -1
         }
 
     def init_db(self):
         data = self.fetch_db()
+        self.last_disabled = data.get('last_disabled', -1)
+        self.disabled = self.last_disabled > -1
         if data is None:
             data = self.fetch_history()
             self.update_db(data)
@@ -133,7 +137,7 @@ class Maintain:
                 try:
                     data = json.load(file)
                 except:
-                    data = {'print_time': 0, 'filament': 0, 'time': time.time()/3600}
+                    data = {'print_time': 0, 'filament': 0, 'time': time.time()/3600, 'last_disabled': -1}
                 return data
     
     def update_db(self, new):
@@ -153,7 +157,7 @@ class Maintain:
         now = self.fetch_history()[self.trigger]
         if self.disabled and self.last_disabled > -1:
             now = self.last_disabled
-        return round(self.threshold - (now - last), 2)
+        return round(self.threshold - (now - last), 5)
 
     cmd_CHECK_MAINTENANCE_help = 'Check maintenance'
     def cmd_CHECK_MAINTENANCE(self, gcmd):
@@ -172,6 +176,11 @@ Maintenance message: {self.message}
             new = self.fetch_history()[self.trigger] - hours
             data[self.trigger] = new
 
+            # Re-enable maintenance
+            data['last_disabled'] = -1
+            self.disabled = False
+            self.last_disabled = -1
+
         self.update_db(data)
     
     cmd_DISABLE_MAINTENANCE_help = 'Disable maintenance'
@@ -183,6 +192,7 @@ Maintenance "{self.label}" is already disabled!
         else:
             self.disabled = True
             self.last_disabled = self.fetch_history()[self.trigger]
+            self.update_db({'last_disabled': self.last_disabled})
             gcmd.respond_info(f'''
 Maintenance "{self.label}" disabled.
 ''')
@@ -202,7 +212,7 @@ Maintenance "{self.label}" disabled.
             self.disabled = False
             last_disabled = self.last_disabled + 0.0
             self.last_disabled = -1
-            self.update_db({self.trigger: self.calc_new_start(cur, last_disabled)})
+            self.update_db({self.trigger: self.calc_new_start(cur, last_disabled), 'last_disabled': -1})
             gcmd.respond_info(f'''
 Maintenance "{self.label}" enabled (disabled for {round(duration, 2)}{self.units})
 ''')
