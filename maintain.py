@@ -12,7 +12,7 @@ class Maintenance:
         self.printer = config.get_printer()
         self.reactor = self.printer.get_reactor()
         self.gcode = self.printer.lookup_object('gcode')
-        
+
         self.interval = config.getint('interval', 60)
 
         self.gcode.register_command('MAINTAIN_STATUS', self.cmd_MAINTAIN_STATUS, desc=self.cmd_MAINTAIN_STATUS_help)
@@ -26,7 +26,7 @@ class Maintenance:
         waketime = self.reactor.monotonic() + self.interval
         self.timer_handler = self.reactor.register_timer(
             self._gcode_timer_event, waketime)
-        
+
     def _gcode_timer_event(self, eventtime):
         self.inside_timer = True
         self.check_maintenance()
@@ -42,7 +42,7 @@ class Maintenance:
                 continue
             if obj.get_remaining() < 0:
                 obj.expired_func()
-    
+
     cmd_MAINTAIN_STATUS_help = 'Check status of maintenance'
     def cmd_MAINTAIN_STATUS(self, gcmd):
         objs = self.printer.lookup_objects('maintain')
@@ -70,7 +70,7 @@ class Maintain:
         # get config options
         self.label = config.get('label', default='')
 
-        self.trigger = config.getchoice('trigger', ['print_time', 'filament', 'time'])
+        self.trigger = config.getchoice('trigger', {x: x for x in ['print_time', 'filament', 'time']})
         if self.trigger == 'print_time':
             self.units = 'h'
         elif self.trigger == 'filament':
@@ -97,7 +97,7 @@ class Maintain:
         self.gcode.register_mux_command('UPDATE_MAINTENANCE', 'NAME', self.name, self.cmd_UPDATE_MAINTENANCE, desc=self.cmd_UPDATE_MAINTENANCE_help)
         self.gcode.register_mux_command('ENABLE_MAINTENANCE', 'NAME', self.name, self.cmd_ENABLE_MAINTENANCE, desc=self.cmd_ENABLE_MAINTENANCE_help)
         self.gcode.register_mux_command('DISABLE_MAINTENANCE', 'NAME', self.name, self.cmd_DISABLE_MAINTENANCE, desc=self.cmd_DISABLE_MAINTENANCE_help)
-    
+
     def default_expired_func(self):
         self.gcode.respond_info(f'Maintenance Expired!\nMaintenance "{self.name}" expired!\n{self.message}')
 
@@ -139,7 +139,7 @@ class Maintain:
                 except:
                     data = {'print_time': 0, 'filament': 0, 'time': time.time()/3600, 'last_disabled': -1}
                 return data
-    
+
     def update_db(self, new):
         path = os.path.join(HOME_DIR, f'maintain-db/{self.name}')
         os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -166,7 +166,7 @@ Maintenance "{self.label}" Status{" (disabled)" if self.disabled else ""}:
 Next maintenance in {self.get_remaining()}{self.units}
 Maintenance message: {self.message}
         '''.strip())
-    
+
     cmd_UPDATE_MAINTENANCE_help = 'Update maintenance'
     def cmd_UPDATE_MAINTENANCE(self, gcmd):
         data = self.fetch_history()
@@ -182,7 +182,7 @@ Maintenance message: {self.message}
             self.last_disabled = -1
 
         self.update_db(data)
-    
+
     cmd_DISABLE_MAINTENANCE_help = 'Disable maintenance'
     def cmd_DISABLE_MAINTENANCE(self, gcmd):
         if self.disabled:
@@ -203,7 +203,7 @@ Maintenance "{self.label}" disabled.
         time_running = last_disabled - old_start
         remaining = self.threshold - time_running
         return remaining - self.threshold + cur
-    
+
     cmd_ENABLE_MAINTENANCE_help = 'Enable maintenance'
     def cmd_ENABLE_MAINTENANCE(self, gcmd):
         if self.disabled:
