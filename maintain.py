@@ -124,11 +124,11 @@ class Maintain:
 
     def init_db(self):
         data = self.fetch_db()
-        self.last_disabled = data.get('last_disabled', -1)
-        self.disabled = self.last_disabled > -1
         if data is None:
             data = self.fetch_history()
             self.update_db(data)
+        self.last_disabled = data.get('last_disabled', -1)
+        self.disabled = self.last_disabled > -1
 
     def fetch_db(self):
         path = os.path.join(HOME_DIR, f'maintain-db/{self.name}')
